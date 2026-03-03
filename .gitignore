@@ -1,0 +1,65 @@
+# Build artifacts
+*.o
+*.exe
+
+# OS
+.DS_Store
+
+# IDE
+*.sln
+*.vcproj
+*.suo
+*.ncb
+*.user
+
+# Simulation output (all goes in output/)
+output/*
+!output/.gitkeep
+
+# Legacy output files (in case they appear in root)
+interactiveOut*.txt
+listOut.txt
+
+# Data files (large, generated)
+*.dat
+*.csv
+currCZT/
+ctsiSetup100V/
+phi_anode.txt
+phi_cathode.txt
+
+# Binary documents
+*.pdf
+*.docx
+*.zip
+*.tar.gz
+
+# Images and media
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.avi
+*.mp4
+*.ts
+
+# Python
+__pycache__/
+*.pyc
+
+# Build directories
+Debug/
+Release/
+
+# Legacy directories (present on disk, not tracked)
+legacy/
+modified-version-Shiloh/
+From Peng/
+
+# Backup configs
+*copy.cfg
+*_BAK.cfg
+*_test.cfg
+
+# Debug output
+interactive_debug.txt

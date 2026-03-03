@@ -1,0 +1,33 @@
+# CTSI Event Input File Format
+# =============================
+# Each line is one interaction (hit). Multiple lines with same eventID = multi-hit event.
+#
+# Columns (tab-separated):
+# 1. eventType   - Event type (typically 3)
+# 2. eventID     - Event ID number (0, 1, 2, ...)
+# 3. dir         - Direction flag (typically 0)
+# 4. time        - Interaction time in seconds (e.g., 1.0e-9)
+# 5. energy      - Energy deposited in MeV (e.g., 0.662 for Cs-137)
+# 6. x           - X position in cm (detector coordinates)
+# 7. y           - Y position in cm (detector coordinates)
+# 8. z           - Z position in cm (see note below)
+# 9. one         - Flag (typically 1)
+# 10. detectorID - Detector ID (typically 1)
+#
+# Z-coordinate note:
+# The z position is transformed by ctsi.cfg settings:
+#   z_detector = z_file * z_scale_factor + z_offset
+# With default test settings (z_scale=-1, z_offset=0.45):
+#   z_detector = -z_file + 0.45
+# So z_file=0.45 gives z_detector=0 (cathode), z_file=0 gives z_detector=0.45 (anode)
+#
+# Example events below (remove # to use):
+
+# Single 662 keV event at detector center, mid-depth
+3	0	0	1.0e-9	0.662	0.0	0.0	0.225	1	1
+
+# Multiple events at different depths (uncomment to use):
+#3	1	0	1.0e-9	0.662	0.0	0.0	0.40	1	1
+#3	2	0	1.0e-9	0.662	0.0	0.0	0.30	1	1
+#3	3	0	1.0e-9	0.662	0.0	0.0	0.20	1	1
+#3	4	0	1.0e-9	0.662	0.0	0.0	0.10	1	1

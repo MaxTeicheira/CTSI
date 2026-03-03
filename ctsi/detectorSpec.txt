@@ -1,0 +1,19 @@
+L 0.5				// Thickness of detector in cm
+W 4				// Width of detector in cm
+NUM_ANODES 39			// Number of anodes on detector
+NUM_CATHODES 8			// Number of cathodes on detector (strips in X direction, indexed by Y)
+ANODE_PITCH 1			// Anode pitch in mm
+ANODE_WIDTH 100			// Anode width in um
+CATHODE_PITCH 5			// Cathode pitch in mm
+CATHODE_WIDTH 4900		// Cathode width in um
+BIAS 1200			// Anode potential relative to the cathode in V/cm
+CZT_W_FACTOR 4.64		// W factor of CZT (ionization energy) in eV (equals 4.64)
+DIFFUSION_E 25.24881297407153	// Electron diffusion = (1000 cm^2/Vs)*(1.3806503e-23 J/K)*(293 K)/(1.60217646e-19 C) = 25.25 cm^2/s
+DIFFUSION_H 1.26244064870358	// Hole diffusion = (50 cm^2/Vs)*(1.3806503e-23 J/K)*(293 K)/(1.60217646e-19 C) = 1.26 cm^2/s
+MU_E 1000			// Electron mobility in CZT in cm^2/Vs (1000 nominal)
+MU_H 50				// Hole mobility in CZT in cm^2/Vs (50 nominal)
+TAU_E 1e-5			// Electron lifetime in s
+TAU_H 1e-6			// Hole lifetime in s
+FANO 0.089   			// Fano factor used for blurring number of electron-hole pairs generated
+EPSILON_R 10.9			// Relative permitivity
+TEMP 293			// Absolute temperature in K

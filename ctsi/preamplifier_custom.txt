@@ -1,0 +1,5 @@
+1_Sampling_interval		1e-9
+2_Num_anode_coefficients	2
+3_Anode_coefficients		1400  -0.99999285714285714
+4_Num_cathode_coefficients	2
+5_Cathode_coefficients		1400  -0.99999285714285714
