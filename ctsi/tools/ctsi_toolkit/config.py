@@ -61,7 +61,7 @@ _FIELD_TYPES = {
 }
 
 
-def load_detector_spec(path: str | Path = "detectorSpec.txt") -> DetectorSpec:
+def load_detector_spec(path: str | Path = "config/detectorSpec.txt") -> DetectorSpec:
     """Parse ``KEY value // comment`` format into a DetectorSpec."""
     vals: dict = {}
     with open(path) as f:
@@ -172,7 +172,7 @@ _CFG_FLOAT_FIELDS = {
 _CFG_INT_FIELDS = {"random_seed", "num_charge_elements", "max_sim_steps"}
 
 
-def load_ctsi_config(path: str | Path = "ctsi.cfg") -> CtsiConfig:
+def load_ctsi_config(path: str | Path = "config/ctsi.cfg") -> CtsiConfig:
     """Parse ``N_Label<tab>value`` format into a CtsiConfig."""
     cfg = CtsiConfig()
     with open(path) as f:
@@ -202,7 +202,7 @@ def load_ctsi_config(path: str | Path = "ctsi.cfg") -> CtsiConfig:
     return cfg
 
 
-def write_ctsi_config(cfg: CtsiConfig, path: str | Path = "ctsi.cfg") -> None:
+def write_ctsi_config(cfg: CtsiConfig, path: str | Path = "config/ctsi.cfg") -> None:
     """Write a CtsiConfig back to disk in the expected format."""
     # Reverse map: field_name → (line_num, label_suffix)
     _LABELS = {

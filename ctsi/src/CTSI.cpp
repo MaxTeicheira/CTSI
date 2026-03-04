@@ -123,7 +123,7 @@ int CTSI::importConfigParams(int indent)
 	cout << "Importing configuration parameters: " << endl;
 	dispIndent(indent);
 	cout << "Opening ctsi.cfg..." << endl;
-	ifstream inFile("ctsi.cfg");
+	ifstream inFile("config/ctsi.cfg");
 
 	try
 	{

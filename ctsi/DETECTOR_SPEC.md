@@ -125,7 +125,7 @@ anodeInd = floor((xValue*10 + ANODE_PITCH*(NUM_ANODES/2)) / ANODE_PITCH)
 
 ## 5. Configuration Files
 
-### 5.1 `ctsi.cfg` — Run Configuration (32 lines)
+### 5.1 `config/ctsi.cfg` — Run Configuration (32 lines)
 
 Format: `N_Label<TAB>VALUE` — one parameter per line, read sequentially by line number.
 
@@ -136,8 +136,8 @@ Format: `N_Label<TAB>VALUE` — one parameter per line, read sequentially by lin
 | 3 | `3_Anode_weighting_potential` | path | Anode phi data file | `./currCZT/ctsi_v4_anode_phi_0p01cm.dat` |
 | 4 | `4_Cathode_weighting_potential` | path | Cathode phi data file | `./currCZT/ctsi_v4_cathode_phi_0p01cm.dat` |
 | 5 | `5_GRAY_output` | path | Event input file (GRAY format) | `./single_event.txt` |
-| 6 | `6_Detector_specification` | path | Detector spec file | `./detectorSpec.txt` |
-| 7 | `7_Preamplifier_specification` | path | Preamplifier spec file | `./preamplifier_custom.txt` |
+| 6 | `6_Detector_specification` | path | Detector spec file | `./config/detectorSpec.txt` |
+| 7 | `7_Preamplifier_specification` | path | Preamplifier spec file | `./config/preamplifier_custom.txt` |
 | 8 | `8_List-mode_output_name` | path | Output file for list-mode results | `listOut.txt` |
 | 9 | `9_Random_seed` | int | PRNG seed | `65539` |
 | 10 | `10_Number_of_charge_elements` | int | Sub-elements per charge cloud | `50` |
@@ -164,7 +164,7 @@ Format: `N_Label<TAB>VALUE` — one parameter per line, read sequentially by lin
 | 31 | `31_Output_mode` | char | `r` = pseudo-RENA format, `m` = matrix format | `r` |
 | 32 | `32_Caution` | bool | Enable data consistency checks (`true`/`false`) | `false` |
 
-### 5.2 `detectorSpec.txt` — Detector Parameters (19 lines)
+### 5.2 `config/detectorSpec.txt` — Detector Parameters (19 lines)
 
 Format: `KEY VALUE<TAB><TAB>// comment` — one parameter per line, comments are **required**.
 
@@ -232,13 +232,13 @@ z_event = (z_internal - 0.5) / (-1)
 
 ```bash
 # From ctsi/
-g++ -c Detector.cpp
-g++ -c CTSI.cpp
-g++ -c main.cpp
-g++ -c Event.cpp
-g++ -c MyRandom.cpp
-g++ -c Preamplification.cpp
-g++ -c Simulation.cpp
+g++ -c src/Detector.cpp
+g++ -c src/CTSI.cpp
+g++ -c src/main.cpp
+g++ -c src/Event.cpp
+g++ -c src/MyRandom.cpp
+g++ -c src/Preamplification.cpp
+g++ -c src/Simulation.cpp
 g++ -o ctsi.exe main.o CTSI.o Detector.o Event.o MyRandom.o Preamplification.o Simulation.o
 chmod a+x ctsi.exe
 ```
@@ -622,7 +622,7 @@ bash compile_all.sh
 
 Or manually:
 ```bash
-g++ -c Detector.cpp CTSI.cpp main.cpp Event.cpp MyRandom.cpp Preamplification.cpp Simulation.cpp
+g++ -c src/Detector.cpp src/CTSI.cpp src/main.cpp src/Event.cpp src/MyRandom.cpp src/Preamplification.cpp src/Simulation.cpp
 g++ -o ctsi.exe main.o CTSI.o Detector.o Event.o MyRandom.o Preamplification.o Simulation.o
 chmod a+x ctsi.exe
 ```

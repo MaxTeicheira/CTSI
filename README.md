@@ -33,11 +33,12 @@ The simulator maps high-energy photon interactions to the corresponding induced 
 ```
 CTSI/
 ├── ctsi/                        # Main simulation code
-│   ├── *.cpp, *.h                    # C++ source files (7 modules)
-│   ├── ctsi.cfg                      # Configuration file (32 parameters)
-│   ├── detectorSpec.txt              # Detector geometry and material properties
-│   ├── preamplifier_custom.txt       # Preamplifier filter coefficients
-│   ├── event_template.txt            # Event file format reference
+│   ├── src/                          # C++ source files (7 modules)
+│   ├── config/                       # Configuration and input specs
+│   │   ├── ctsi.cfg                  # Configuration file (32 parameters)
+│   │   ├── detectorSpec.txt          # Detector geometry and material properties
+│   │   ├── preamplifier_custom.txt   # Preamplifier filter coefficients
+│   │   └── event_template.txt        # Event file format reference
 │   ├── compile_all.sh                # Build script
 │   ├── DETECTOR_SPEC.md              # Complete technical reference
 │   ├── ARCHITECTURE.md               # Pipeline and upstream format notes
@@ -66,7 +67,7 @@ bash compile_all.sh
 Or manually:
 ```bash
 cd ctsi
-g++ -c main.cpp CTSI.cpp Detector.cpp Event.cpp MyRandom.cpp Preamplification.cpp Simulation.cpp
+g++ -c src/main.cpp src/CTSI.cpp src/Detector.cpp src/Event.cpp src/MyRandom.cpp src/Preamplification.cpp src/Simulation.cpp
 g++ -o ctsi.exe main.o CTSI.o Detector.o Event.o MyRandom.o Preamplification.o Simulation.o
 chmod a+x ctsi.exe
 ```
@@ -116,12 +117,12 @@ CTSI requires pre-generated E-field and weighting potential data files that are 
 | Cathode weighting potentials | 3D phi grids for each cathode | `python tools/generate_weighting_potential.py` |
 | GRAY event file | Photon interaction list (for list mode only) | External GRAY simulator |
 
-Place generated files in paths matching `ctsi.cfg` lines 1-7.
+Place generated files in paths matching `config/ctsi.cfg` lines 1-7.
 
 ## Configuration
 
-- **`ctsi.cfg`** — 32-line config: file paths, simulation parameters, grid spacing, coordinate transforms
-- **`detectorSpec.txt`** — 19 detector parameters: geometry, bias, material properties
+- **`config/ctsi.cfg`** — 32-line config: file paths, simulation parameters, grid spacing, coordinate transforms
+- **`config/detectorSpec.txt`** — 19 detector parameters: geometry, bias, material properties
 
 See `ctsi/DETECTOR_SPEC.md` for complete format specifications.
 

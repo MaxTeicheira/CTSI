@@ -19,9 +19,9 @@ import numpy as np
 
 def _add_common_args(parser: argparse.ArgumentParser) -> None:
     """Add options shared across all subcommands."""
-    parser.add_argument("--detector-spec", default="detectorSpec.txt",
+    parser.add_argument("--detector-spec", default="config/detectorSpec.txt",
                         help="Path to detectorSpec.txt")
-    parser.add_argument("--config", default="ctsi.cfg",
+    parser.add_argument("--config", default="config/ctsi.cfg",
                         help="Path to ctsi.cfg")
     parser.add_argument("--exe", default="./ctsi.exe",
                         help="Path to the ctsi executable")
