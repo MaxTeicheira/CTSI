@@ -4,9 +4,8 @@
 #include "CTSI.h"
 #include "Detector.h"
 #include "Event.h"
-//#include <TGraph.h>
-//#include <TCanvas.h>
-//#include <TApplication.h>
+
+#include <cstring>
 
 using namespace std;
 

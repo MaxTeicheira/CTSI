@@ -2,6 +2,7 @@
 #include "MyRandom.h"
 #include "Preamplification.h"
 #include "Simulation.h"
+#include <cstring>
 #include <fstream>
 
 using namespace std;

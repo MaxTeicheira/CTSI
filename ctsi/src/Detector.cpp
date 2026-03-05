@@ -1,5 +1,6 @@
 #include "Detector.h"
 
+#include <cstring>
 #include <limits>
 
 using namespace std;

@@ -5,6 +5,8 @@
 #include "Preamplification.h"
 #include "Simulation.h"
 
+#include <cstring>
+
 using namespace std;
 
 #define NUM_CONFIG_PARAMS_TO_IMPORT 32
