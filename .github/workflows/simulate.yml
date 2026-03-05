@@ -51,6 +51,12 @@ jobs:
           cd ctsi
           bash compile_all.sh
 
+      - name: Create runtime directories
+        run: |
+          cd ctsi
+          mkdir -p output _site
+          touch single_event.txt
+
       - name: Run single event simulation
         run: |
           cd ctsi
@@ -59,7 +65,6 @@ jobs:
       - name: Generate waveform and event plots
         run: |
           cd ctsi
-          mkdir -p _site
           python3 -m tools.ctsi_toolkit plot-waveforms --output _site/waveforms.png
           python3 -m tools.ctsi_toolkit plot-event --output _site/event_viz.png
 
