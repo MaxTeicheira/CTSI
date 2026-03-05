@@ -65,8 +65,8 @@ jobs:
       - name: Generate waveform and event plots
         run: |
           cd ctsi
-          python3 -m tools.ctsi_toolkit plot-waveforms --output _site/waveforms.png
-          python3 -m tools.ctsi_toolkit plot-event --output _site/event_viz.png
+          python3 -m tools.ctsi_toolkit plot-waveforms --input output/interactiveOut.txt --output _site/waveforms.png
+          python3 -m tools.ctsi_toolkit plot-event --input output/interactiveOut.txt --output _site/event_viz.png
 
       - name: Run z-scan and plot
         run: |
