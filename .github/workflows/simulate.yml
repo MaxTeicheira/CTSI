@@ -1,0 +1,83 @@
+name: Simulate & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  simulate-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+
+    steps:
+      - name: Checkout CTSI
+        uses: actions/checkout@v4
+
+      - name: Clone weighting-potential-sim
+        run: git clone https://github.com/MaxTeicheira/weighting-potential-sim.git
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          pip install numpy scipy matplotlib
+          pip install -e weighting-potential-sim
+
+      - name: Generate E-field and weighting potentials
+        run: python -m weighting_potential_sim.generate_ctsi_v4_fields
+
+      - name: Copy field data to CTSI
+        run: |
+          mkdir -p ctsi/currCZT
+          cp output/ctsi_v4/*.dat ctsi/currCZT/
+
+      - name: Build CTSI
+        run: |
+          cd ctsi
+          bash compile_all.sh
+
+      - name: Run single event simulation
+        run: |
+          cd ctsi
+          python3 -m tools.ctsi_toolkit run-event --x 0 --y 0 --z 0.25 --energy 0.511
+
+      - name: Generate waveform and event plots
+        run: |
+          cd ctsi
+          mkdir -p _site
+          python3 -m tools.ctsi_toolkit plot-waveforms --output _site/waveforms.png
+          python3 -m tools.ctsi_toolkit plot-event --output _site/event_viz.png
+
+      - name: Run z-scan and plot
+        run: |
+          cd ctsi
+          python3 -m tools.ctsi_toolkit plot-zscan \
+            --z-min 0.05 --z-max 0.45 --z-steps 5 \
+            --output _site/zscan.png
+
+      - name: Generate index.html
+        run: python3 scripts/generate_pages.py ctsi/_site --detector-spec ctsi/config/detectorSpec.txt
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ctsi/_site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
