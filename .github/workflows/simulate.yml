@@ -39,7 +39,7 @@ jobs:
           pip install -e weighting-potential-sim
 
       - name: Generate E-field and weighting potentials
-        run: python -m weighting_potential_sim.generate_ctsi_v4_fields
+        run: python weighting-potential-sim/generate_ctsi_v4_fields.py
 
       - name: Copy field data to CTSI
         run: |
