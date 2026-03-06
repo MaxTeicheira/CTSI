@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define NUM_CONFIG_PARAMS_TO_IMPORT 32
+#define NUM_CONFIG_PARAMS_TO_IMPORT 33
 
 CTSI::CTSI()
 {
@@ -463,6 +463,15 @@ int CTSI::importConfigParams(int indent)
 							}
 							break;
 						}
+					case 33:
+						// Neighbor electrode window for signal computation
+						inFile >> caption >> configParams.NEIGHBOR_WINDOW;
+						if (!strcmp(caption, "\0"))
+							throw 0;
+						dispIndent(indent + 1);
+						cout << caption << ": " << configParams.NEIGHBOR_WINDOW << endl;
+						numParamsImported++;
+						break;
 					default:
 						inFile >> caption;
 				}

@@ -121,6 +121,7 @@ class CtsiConfig:
     event_z_offset: float = 0.5
     output_mode: str = "r"
     caution: str = "false"
+    neighbor_electrode_window: int = 3
 
 
 # Map ctsi.cfg line numbers to CtsiConfig field names
@@ -157,6 +158,7 @@ _CFG_MAP = {
     30: "event_z_offset",
     31: "output_mode",
     32: "caution",
+    33: "neighbor_electrode_window",
 }
 
 _CFG_FLOAT_FIELDS = {
@@ -169,7 +171,7 @@ _CFG_FLOAT_FIELDS = {
     "event_x_offset", "event_y_offset", "event_z_offset",
 }
 
-_CFG_INT_FIELDS = {"random_seed", "num_charge_elements", "max_sim_steps"}
+_CFG_INT_FIELDS = {"random_seed", "num_charge_elements", "max_sim_steps", "neighbor_electrode_window"}
 
 
 def load_ctsi_config(path: str | Path = "config/ctsi.cfg") -> CtsiConfig:
@@ -222,6 +224,7 @@ def write_ctsi_config(cfg: CtsiConfig, path: str | Path = "config/ctsi.cfg") -> 
         27: "Event_z_pos_scale_factor", 28: "Event_x_pos_offset",
         29: "Event_y_pos_offset", 30: "Event_z_pos_offset",
         31: "Output_mode", 32: "Caution",
+        33: "Neighbor_electrode_window",
     }
     with open(path, "w") as f:
         for line_num in sorted(_CFG_MAP.keys()):

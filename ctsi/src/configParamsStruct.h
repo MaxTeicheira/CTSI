@@ -37,6 +37,7 @@ struct configParamStruct{
 	double	EVENT_POS_OFFSET_Z;					// Amount to offset the z position of events
 	char	OUTPUT_MODE[256];					// Format of the output data
 	bool	CAUTION;							// If caution is on, then data consistency check is performed in run
+	int		NEIGHBOR_WINDOW;					// Neighbor electrode window: -1 = all, 0 = collectors only, N = ±N neighbors
 };
 
 # endif // CONFIGPARAMS_H

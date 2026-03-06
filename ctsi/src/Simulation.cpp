@@ -551,10 +551,32 @@ int Simulation::engine(void*		ctsiObjectPtr,
 			{
 				try
 				{
-					// Force all electrodes to be treated as "collected" so we
-					// compute signals for every anode and cathode (neighbor info).
-					for (int i = 0; i < (int) anCollectorOneHot.size(); i++)
-						anCollectorOneHot[i] = 1;
+					// Expand collector set to include neighboring electrodes
+					// within configurable window for neighbor signal analysis.
+					int window = configParams.NEIGHBOR_WINDOW;
+					if (window < 0) {
+						// -1 = compute ALL electrodes (legacy behavior)
+						for (int i = 0; i < (int) anCollectorOneHot.size(); i++)
+							anCollectorOneHot[i] = 1;
+					} else {
+						// Find range of collecting anodes, expand by +/-window
+						int anMin = (int) anCollectorOneHot.size();
+						int anMax = -1;
+						for (int i = 0; i < (int) anCollectorOneHot.size(); i++) {
+							if (anCollectorOneHot[i] == 1) {
+								if (i < anMin) anMin = i;
+								if (i > anMax) anMax = i;
+							}
+						}
+						if (anMax >= 0) {
+							int lo = (anMin - window > 0) ? anMin - window : 0;
+							int hi = (anMax + window < (int) anCollectorOneHot.size() - 1)
+							         ? anMax + window : (int) anCollectorOneHot.size() - 1;
+							for (int i = lo; i <= hi; i++)
+								anCollectorOneHot[i] = 1;
+						}
+					}
+					// Cathodes: always compute all (only 8 strips, negligible cost)
 					for (int i = 0; i < (int) caCollectorOneHot.size(); i++)
 						caCollectorOneHot[i] = 1;
 
