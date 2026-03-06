@@ -132,30 +132,37 @@ def plot_event(
     ax.grid(True, alpha=0.3)
 
     # ------------------------------------------------------------------
-    # (D) Anode signals
+    # (D) Anode signals (auto-filtered to significant electrodes)
     # ------------------------------------------------------------------
+    from . import auto_select_electrodes
+    sel_an, sel_ca = auto_select_electrodes(result)
+    an_ids = list(result.an_collector_id)
+    ca_ids = list(result.ca_collector_id)
+
     ax = fig.add_subplot(gs[1, 0])
-    for i, signal in enumerate(result.an_vs_time):
-        an_id = int(result.an_collector_id[i]) if i < len(result.an_collector_id) else i
-        ax.plot(time_us, signal, lw=1.5, label=f"Pixel {an_id}")
+    for aid in sel_an:
+        if aid in an_ids:
+            i = an_ids.index(aid)
+            ax.plot(time_us, result.an_vs_time[i], lw=1.5, label=f"Pixel {aid}")
     ax.set_xlabel("Time (\u00b5s)")
     ax.set_ylabel("Induced Current (a.u.)")
     ax.set_title("(D) Anode Induced Signals")
-    if result.an_vs_time:
+    if sel_an:
         ax.legend(fontsize=9, loc="best")
     ax.grid(True, alpha=0.3)
 
     # ------------------------------------------------------------------
-    # (E) Cathode signals
+    # (E) Cathode signals (auto-filtered to significant electrodes)
     # ------------------------------------------------------------------
     ax = fig.add_subplot(gs[1, 1])
-    for i, signal in enumerate(result.ca_vs_time):
-        ca_id = int(result.ca_collector_id[i]) if i < len(result.ca_collector_id) else i
-        ax.plot(time_us, signal, lw=1.5, label=f"Strip {ca_id}")
+    for cid in sel_ca:
+        if cid in ca_ids:
+            i = ca_ids.index(cid)
+            ax.plot(time_us, result.ca_vs_time[i], lw=1.5, label=f"Strip {cid}")
     ax.set_xlabel("Time (\u00b5s)")
     ax.set_ylabel("Induced Current (a.u.)")
     ax.set_title("(E) Cathode Induced Signals")
-    if result.ca_vs_time:
+    if sel_ca:
         ax.legend(fontsize=9, loc="best")
     ax.grid(True, alpha=0.3)
 

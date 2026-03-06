@@ -47,14 +47,17 @@ def plot_waveforms(
     unit_label = {"ns": "ns", "us": "\u00b5s"}[time_unit]
     time = result.time_vec * scale
 
-    # Default to all collectors if no selection given
+    # Default to auto-selected electrodes (by peak signal amplitude)
     an_ids = list(result.an_collector_id)
     ca_ids = list(result.ca_collector_id)
 
-    if anodes is None:
-        anodes = an_ids
-    if cathodes is None:
-        cathodes = ca_ids
+    if anodes is None or cathodes is None:
+        from . import auto_select_electrodes
+        auto_an, auto_ca = auto_select_electrodes(result)
+        if anodes is None:
+            anodes = auto_an
+        if cathodes is None:
+            cathodes = auto_ca
 
     fig, ax = plt.subplots(figsize=(12, 7))
 
