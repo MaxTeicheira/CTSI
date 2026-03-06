@@ -50,4 +50,9 @@ def auto_select_electrodes(
     selected_anodes = [an_ids[i] for i, p in enumerate(an_peaks) if p >= cutoff]
     selected_cathodes = [ca_ids[i] for i, p in enumerate(ca_peaks) if p >= cutoff]
 
+    # Cathode signals are nearly identical — keep only the strongest one
+    if len(selected_cathodes) > 1:
+        best_idx = max(range(len(ca_peaks)), key=lambda i: ca_peaks[i])
+        selected_cathodes = [ca_ids[best_idx]]
+
     return selected_anodes, selected_cathodes
