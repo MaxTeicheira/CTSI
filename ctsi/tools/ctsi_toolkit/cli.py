@@ -145,8 +145,8 @@ def main(argv: list[str] | None = None) -> None:
 
     # -- plot-zscan --
     p = sub.add_parser("plot-zscan", help="Run z-scan and plot 4-panel figure")
-    p.add_argument("--electrodes", nargs="*", default=["A18", "A19", "A20", "C1"],
-                   help="Electrodes (e.g. A18 A19 C1)")
+    p.add_argument("--electrodes", nargs="*", default=None,
+                   help="Electrodes (e.g. A18 A19 C1). Auto-selected if omitted.")
     p.add_argument("--x", type=float, default=0.01)
     p.add_argument("--y", type=float, default=0.25)
     p.add_argument("--energy", type=float, default=0.662)

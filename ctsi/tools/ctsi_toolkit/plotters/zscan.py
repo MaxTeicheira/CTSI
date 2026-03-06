@@ -44,7 +44,13 @@ def plot_zscan(
         Call ``plt.show()``.
     """
     if electrodes is None:
-        electrodes = ["A18", "A19", "A20", "C1"]
+        # Auto-select from the first z-position's result
+        from . import auto_select_electrodes
+        first_result = next(iter(z_results.values()))
+        auto_an, auto_ca = auto_select_electrodes(first_result)
+        electrodes = [f"A{a}" for a in auto_an] + [f"C{c}" for c in auto_ca]
+        if not electrodes:
+            electrodes = ["A18", "A19", "A20", "C1"]
 
     # Parse electrode specs
     parsed: List[Tuple[str, int]] = []  # ("anode"|"cathode", id)
